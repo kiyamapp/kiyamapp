@@ -39,7 +39,7 @@ app.get('/api/health', (req, res) => {
 });
 
 // One-time seed endpoint (remove after first use)
-app.post('/api/seed', async (req, res) => {
+app.get('/api/seed', async (req, res) => {
   try {
     const bcrypt = require('bcryptjs');
     const Admin = require('./models/Admin');
