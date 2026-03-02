@@ -1,0 +1,77 @@
+{
+  "appName": "KıyamApp",
+  "subtitle": "Kıyamet Alametleri Terminali",
+  "landing": {
+    "welcome": "Hoş Geldiniz",
+    "selectReligion": "Din Seçiniz",
+    "selectLanguage": "Dil Seçiniz",
+    "enter": "Giriş",
+    "description": "Tüm dinlerden kıyamet alametlerini borsa terminali tarzında takip edin."
+  },
+  "religions": {
+    "all": "Tümü",
+    "islam": "İslam",
+    "christianity": "Hristiyanlık",
+    "judaism": "Yahudilik",
+    "hinduism": "Hinduizm",
+    "buddhism": "Budizm",
+    "other": "Diğer"
+  },
+  "status": {
+    "Oldu": "Oldu",
+    "Olmak Üzere": "Olmak Üzere",
+    "Olmadı": "Olmadı",
+    "Olamayacak": "Olamayacak"
+  },
+  "statusEN": {
+    "Oldu": "Happened",
+    "Olmak Üzere": "About to Happen",
+    "Olmadı": "Not Happened",
+    "Olamayacak": "Impossible"
+  },
+  "table": {
+    "sign": "Alamet",
+    "source": "Din/Kaynak",
+    "status": "Durum",
+    "date": "Tarih",
+    "actions": "İşlemler"
+  },
+  "filters": {
+    "filterByReligion": "Dine Göre Filtrele",
+    "filterByStatus": "Duruma Göre Filtrele",
+    "all": "Tümü",
+    "search": "Ara..."
+  },
+  "nav": {
+    "home": "Ana Sayfa",
+    "about": "Hakkında",
+    "admin": "Admin"
+  },
+  "admin": {
+    "login": "Admin Giriş",
+    "username": "Kullanıcı Adı",
+    "password": "Şifre",
+    "loginBtn": "Giriş Yap",
+    "logout": "Çıkış",
+    "panel": "Admin Paneli",
+    "addSign": "Yeni Alamet Ekle",
+    "editSign": "Alamet Düzenle",
+    "titleTR": "Başlık (TR)",
+    "titleEN": "Başlık (EN)",
+    "descTR": "Açıklama (TR)",
+    "descEN": "Açıklama (EN)",
+    "source": "Kaynak/Din",
+    "status": "Durum",
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "delete": "Sil",
+    "edit": "Düzenle",
+    "stats": "İstatistikler",
+    "total": "Toplam",
+    "error": "Hatalı kullanıcı adı veya şifre"
+  },
+  "chart": {
+    "title": "Durum Dağılımı",
+    "trend": "Trend Grafiği"
+  }
+}

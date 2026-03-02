@@ -1,0 +1,71 @@
+{
+  "appName": "KıyamApp",
+  "subtitle": "Apocalypse Signs Terminal",
+  "landing": {
+    "welcome": "Welcome",
+    "selectReligion": "Select Religion",
+    "selectLanguage": "Select Language",
+    "enter": "Enter",
+    "description": "Track apocalypse signs from all religions in a stock terminal style."
+  },
+  "religions": {
+    "all": "All",
+    "islam": "Islam",
+    "christianity": "Christianity",
+    "judaism": "Judaism",
+    "hinduism": "Hinduism",
+    "buddhism": "Buddhism",
+    "other": "Other"
+  },
+  "status": {
+    "Oldu": "Happened",
+    "Olmak Üzere": "About to Happen",
+    "Olmadı": "Not Happened",
+    "Olamayacak": "Impossible"
+  },
+  "table": {
+    "sign": "Sign",
+    "source": "Religion/Source",
+    "status": "Status",
+    "date": "Date",
+    "actions": "Actions"
+  },
+  "filters": {
+    "filterByReligion": "Filter by Religion",
+    "filterByStatus": "Filter by Status",
+    "all": "All",
+    "search": "Search..."
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "admin": "Admin"
+  },
+  "admin": {
+    "login": "Admin Login",
+    "username": "Username",
+    "password": "Password",
+    "loginBtn": "Login",
+    "logout": "Logout",
+    "panel": "Admin Panel",
+    "addSign": "Add New Sign",
+    "editSign": "Edit Sign",
+    "titleTR": "Title (TR)",
+    "titleEN": "Title (EN)",
+    "descTR": "Description (TR)",
+    "descEN": "Description (EN)",
+    "source": "Source/Religion",
+    "status": "Status",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "stats": "Statistics",
+    "total": "Total",
+    "error": "Invalid username or password"
+  },
+  "chart": {
+    "title": "Status Distribution",
+    "trend": "Trend Chart"
+  }
+}
