@@ -76,6 +76,87 @@ app.get('/api/seed', async (req, res) => {
   }
 });
 
+// One-time history seed endpoint
+app.get('/api/seed-history', async (req, res) => {
+  try {
+    const IndexPoint = require('./models/IndexPoint');
+    const count = await IndexPoint.countDocuments();
+    if (count > 500) return res.json({ message: `Zaten ${count} veri noktası var` });
+
+    const HISTORICAL_EVENTS = [
+      { year: -4000, value: 2, trigger: 'Dünyanın yaratılışı', magnitude: 'minimal' },
+      { year: -3000, value: 3.5, trigger: 'İlk medeniyetler', magnitude: 'minimal' },
+      { year: -2000, value: 5, trigger: 'Hz. İbrahim dönemi', magnitude: 'minor' },
+      { year: -1500, value: 5.5, trigger: 'Hz. Musa ve Çıkış', magnitude: 'minor' },
+      { year: -1200, value: 7, trigger: 'Tunç Çağı Çöküşü', magnitude: 'moderate' },
+      { year: -586, value: 10, trigger: 'Kudüs\'ün yıkılışı', magnitude: 'moderate' },
+      { year: -334, value: 9, trigger: 'İskender\'in fetihleri', magnitude: 'minor' },
+      { year: 30, value: 8, trigger: 'Hz. İsa dönemi', magnitude: 'minor' },
+      { year: 70, value: 14, trigger: 'İkinci Tapınağın yıkılışı', magnitude: 'moderate' },
+      { year: 476, value: 16, trigger: 'Batı Roma\'nın çöküşü', magnitude: 'moderate' },
+      { year: 632, value: 13, trigger: 'Hz. Muhammed\'in vefatı', magnitude: 'minor' },
+      { year: 680, value: 15, trigger: 'Kerbela Olayı', magnitude: 'moderate' },
+      { year: 1096, value: 18, trigger: 'Haçlı Seferleri', magnitude: 'moderate' },
+      { year: 1258, value: 22, trigger: 'Moğol istilası - Bağdat düştü', magnitude: 'major' },
+      { year: 1347, value: 30, trigger: 'Kara Veba - 75M ölü', magnitude: 'major' },
+      { year: 1453, value: 20, trigger: 'İstanbul\'un fethi', magnitude: 'moderate' },
+      { year: 1618, value: 23, trigger: '30 Yıl Savaşları - 8M ölü', magnitude: 'major' },
+      { year: 1789, value: 22, trigger: 'Fransız Devrimi', magnitude: 'moderate' },
+      { year: 1914, value: 38, trigger: 'I. Dünya Savaşı - 20M ölü', magnitude: 'major' },
+      { year: 1918, value: 45, trigger: 'İspanyol Gribi - 50M ölü', magnitude: 'major' },
+      { year: 1939, value: 55, trigger: 'II. Dünya Savaşı başladı', magnitude: 'major' },
+      { year: 1945, value: 72, trigger: 'Hiroşima atom bombası', magnitude: 'major' },
+      { year: 1962, value: 68, trigger: 'Küba Füze Krizi', magnitude: 'major' },
+      { year: 1975, value: 48, trigger: 'Kamboçya soykırımı', magnitude: 'major' },
+      { year: 1986, value: 56, trigger: 'Çernobil felaketi', magnitude: 'major' },
+      { year: 1991, value: 38, trigger: 'Soğuk Savaş bitti', magnitude: 'moderate' },
+      { year: 1994, value: 45, trigger: 'Ruanda Soykırımı - 800K ölü', magnitude: 'major' },
+      { year: 2001, value: 55, trigger: '11 Eylül Saldırıları', magnitude: 'major' },
+      { year: 2020, value: 60, trigger: 'COVID-19 Pandemisi', magnitude: 'major' },
+      { year: 2022, month: 2, value: 65, trigger: 'Rusya-Ukrayna Savaşı', magnitude: 'major' },
+      { year: 2023, month: 2, value: 58, trigger: 'Türkiye depremler - 50K+ ölü', magnitude: 'major' },
+      { year: 2023, month: 10, value: 64, trigger: 'İsrail-Hamas Savaşı', magnitude: 'major' },
+      { year: 2024, month: 4, value: 62, trigger: 'İran-İsrail gerilimi', magnitude: 'moderate' },
+      { year: 2025, month: 3, value: 65, trigger: 'Küresel gerilim artışı', magnitude: 'moderate' },
+      { year: 2026, month: 2, value: 73, trigger: 'İran bombardımanı', magnitude: 'major' },
+    ];
+
+    const points = [];
+    for (let i = 0; i < HISTORICAL_EVENTS.length; i++) {
+      const e = HISTORICAL_EVENTS[i];
+      const d = new Date(e.year, (e.month || 1) - 1, 15);
+      points.push({
+        value: e.value,
+        change: i > 0 ? e.value - HISTORICAL_EVENTS[i-1].value : 0,
+        trigger: e.trigger,
+        magnitude: e.magnitude,
+        timestamp: d
+      });
+      // Interpolate between events
+      if (i < HISTORICAL_EVENTS.length - 1) {
+        const next = HISTORICAL_EVENTS[i+1];
+        const nextD = new Date(next.year, (next.month || 1) - 1, 15);
+        const steps = 3;
+        for (let j = 1; j <= steps; j++) {
+          const ratio = j / (steps + 1);
+          const t = d.getTime() + (nextD.getTime() - d.getTime()) * ratio;
+          const v = e.value + (next.value - e.value) * ratio + (Math.random() - 0.5) * 2;
+          points.push({
+            value: Math.round(Math.max(0, Math.min(100, v)) * 100) / 100,
+            change: 0, trigger: '', magnitude: 'minimal',
+            timestamp: new Date(t)
+          });
+        }
+      }
+    }
+
+    await IndexPoint.insertMany(points);
+    res.json({ message: `${points.length} tarihsel veri noktası eklendi.` });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 mongoose.connect(MONGO_URI)
   .then(() => {
     console.log('MongoDB bağlantısı başarılı');
